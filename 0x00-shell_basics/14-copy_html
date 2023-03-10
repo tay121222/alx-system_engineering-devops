@@ -1,0 +1,2 @@
+#!/bin/bash
+cp -v --ignore-existing --update *.html ../

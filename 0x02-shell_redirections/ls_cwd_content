@@ -1,0 +1,12 @@
+total 0
+drwxr-xr-x 1 tay121222 tay121222 512 Mar 13 23:10 .
+drwxr-xr-x 1 tay121222 tay121222 512 Mar 13 21:29 ..
+-rwx------ 1 tay121222 tay121222  32 Mar 13 21:24 0-hello_world
+-rwxr--r-- 1 tay121222 tay121222  28 Mar 13 21:55 1-confused_smiley
+-rwx------ 1 tay121222 tay121222  28 Mar 13 22:03 2-hellofile
+-rwx------ 1 tay121222 tay121222  39 Mar 13 22:12 3-twofiles
+-rwxr--r-- 1 tay121222 tay121222  29 Mar 13 22:19 4-lastlines
+-rwxr--r-- 1 tay121222 tay121222  29 Mar 13 22:29 5-firstlines
+-rwx------ 1 tay121222 tay121222  36 Mar 13 22:38 6-third_line
+-rw-r--r-- 1 tay121222 tay121222  46 Mar 13 21:38 README.md
+-rw-r--r-- 1 tay121222 tay121222   0 Mar 13 23:10 ls_cwd_content

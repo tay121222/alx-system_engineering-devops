@@ -1,2 +1,2 @@
 #!/bin/bash
-find . -type d -name '.*' | wc -c
+find . -mindepth 1 -type d -name '.*' -not -path '*/.*' | wc -c

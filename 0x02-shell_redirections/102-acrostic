@@ -1,2 +1,2 @@
 #!/bin/bash
-tr -s ' ' '\n' | sed -n '/^[A-Z]./{p;q;}' | cut -c 1
+awk '{printf "%s",substr($0,1,1)} END{printf "\n"}'

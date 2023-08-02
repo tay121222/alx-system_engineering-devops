@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Bash script that ndefinitely writes I am alive! to the file
+PID_FILE="/var/run/my_process.pid"
+SCRIPT="./manage_my_process"
+
+case "$1" in
+	start)
+		"$SCRIPT" &
+		echo $! > "$PID_FILE"
+		echo "manage_my_process started"
+		;;
+	stop)
+		pid=$(cat "$PID_FILE")
+		rm -f "$PID_FILE"
+		kill "$pid"
+		echo "manage_my_process stopped"
+		;;
+	restart)
+		pid=$(cat "$PID_FILE")
+		rm -f "$PID_FILE"
+		kill "$pid"
+		"$SCRIPT" &
+		echo $! > "$PID_FILE"
+		echo "manage_my_process restarted"
+		;;
+	*)
+		echo "Usage: manage_my_process {start|stop|restart}"
+		exit 1
+esac

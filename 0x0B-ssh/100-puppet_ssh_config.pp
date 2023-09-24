@@ -1,5 +1,5 @@
 # Puppet manifest to configure SSH client
-file { '/home/tay121222/.ssh/config':
+file { '/etc/ssh/ssh_config':
   ensure  => 'file',
   content => "IdentityFile ~/.ssh/school\nPasswordAuthentication no\n",
   replace => 'no',

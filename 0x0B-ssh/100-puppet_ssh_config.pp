@@ -1,14 +1,14 @@
 # Puppet manifest to configure SSH client
-exec { 'ssh_identityfile':
-  command    => "grep -q '^IdentityFile ~/.ssh/school' ~/.ssh/config || echo 'IdentityFile ~/.ssh/school' >> ~/.ssh/config",
-  path    => '/bin:/usr/bin:/usr/local/bin',
-  creates     => '/home/tay121222/.ssh/config',
-  refreshonly => true,
+file_line { 'ssh_identityfile':
+  path    => '/home/tay121222/.ssh/config',
+  line    => 'IdentityFile ~/.ssh/school',
+  ensure  => present,
+  match   => '^IdentityFile.*',
 }
 
-exec { 'ssh_passwordauthentication':
-  command => "grep -q '^PasswordAuthentication no' ~/.ssh/config || echo 'PasswordAuthentication no' >> ~/.ssh/config"
-  path    => '/bin:/usr/bin:/usr/local/bin',
-  creates     => '/home/tay121222/.ssh/config',
-  refreshonly => true,
+file_line { 'ssh_password_authentication':
+  path    => '/home/tay121222/.ssh/config',
+  line    => 'PasswordAuthentication no',
+  ensure  => present,
+  match   => '^PasswordAuthentication.*',
 }

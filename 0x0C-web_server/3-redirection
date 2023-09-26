@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Nginx server Redirection
 sudo apt-get update -y
 sudo apt-get install nginx -y
-sudo sed -i '/server_name _;/a \\nlocation /redirect_me {\n    return 301 https://xtechsoftwarelib.com;\n}' /etc/nginx/sites-available/default
+sudo sed -i '/server_name _;/a \\nlocation /redirect_me {\n    return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n}' /etc/nginx/sites-available/default
 sudo service nginx restart

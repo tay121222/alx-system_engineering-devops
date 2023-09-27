@@ -4,21 +4,35 @@ package { 'nginx':
 }
 
 file { '/var/www/html/index.nginx-debian.html':
-  content => 'Hello World!',
   ensure  => 'file',
+  content => 'Hello World!',
   require => Package['nginx'],
 }
 
 file { '/etc/nginx/sites-available/default':
-  ensure => 'present',
-  content => template('nginx/default.erb'),
+  ensure  => 'present',
+  content => "
+server {
+    listen 80 default_server;
+    server_name _;
+
+    location / {
+        root   /var/www/html;
+        index  index.html;
+    }
+    
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+}
+",
   require => Package['nginx'],
-  notify => Service['nginx'],
+  notify  => Service['nginx'],
 }
 
 file { '/var/www/html/custom_404.html':
-  content => "Ceci n'est pas une page",
   ensure  => 'file',
+  content => "Ceci n'est pas une page",
   require => Package['nginx'],
 }
 
@@ -32,4 +46,5 @@ exec { 'configure_404':
 service { 'nginx':
   ensure  => 'running',
   enable  => true,
+  require => Package['nginx'],
 }

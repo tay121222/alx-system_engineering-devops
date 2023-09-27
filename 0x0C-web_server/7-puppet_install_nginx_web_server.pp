@@ -3,7 +3,7 @@ package { 'nginx':
   ensure => 'installed',
 }
 
-file { '/var/www/html/index.nginx-debian.html':
+file { '/var/www/html/index.html':
   ensure  => 'file',
   content => 'Hello World!',
   require => Package['nginx'],
@@ -37,7 +37,7 @@ file { '/var/www/html/custom_404.html':
 }
 
 exec { 'configure_404':
-  command => 'sed -i "/server_name _;/a \\\\nerror_page 404 /custom_404.html;\\nlocation = /custom_404.html {\\n    root /var/www/html;\\n    internal;\\n}" /etc/nginx/sites-available/default',
+  command => 'sed -i "/server_name _;/a \\\\error_page 404 /custom_404.html;\\nlocation = /custom_404.html {\\n    root /var/www/html;\\n    internal;\\n}" /etc/nginx/sites-available/default',
   path    => '/bin:/usr/bin',
   require => File['/var/www/html/custom_404.html'],
   notify  => Service['nginx'],

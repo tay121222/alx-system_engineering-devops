@@ -19,6 +19,7 @@ server {
     location / {
         root   /var/www/html;
         index  index.html;
+	add_header X-Served-By \$HOSTNAME;
     }
     
     location /redirect_me {

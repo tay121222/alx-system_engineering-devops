@@ -37,7 +37,7 @@ file { '/var/www/html/custom_404.html':
 }
 
 exec { 'configure_404':
-  command => 'sed -i "/server_name _;/a \\\\error_page 404 /custom_404.html;\\nlocation = /custom_404.html {\\n    root /var/www/html;\\n    internal;\\n}\n    add_header X-Served-By $hostname;\n" /etc/nginx/sites-available/default',
+  command => 'sed -i "/server_name _;/a \\\\error_page 404 /custom_404.html;\\nlocation = /custom_404.html {\\n    root /var/www/html;\\n    internal;\\n}\n    add_header X-Served-By $HOSTNAME;\n" /etc/nginx/sites-available/default',
   path    => '/bin:/usr/bin',
   require => File['/var/www/html/custom_404.html'],
   notify  => Service['nginx'],

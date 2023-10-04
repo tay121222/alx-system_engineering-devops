@@ -3,20 +3,49 @@ package { 'nginx':
   ensure => 'installed',
 }
 
-$custom_header_config = 'add_header X-Served-By $HOSTNAME;'
-$config_file = '/etc/nginx/sites-available/default'
-
-file_line { 'add_custom_header':
-  ensure => present,
-  line   => $custom_header_config,
-  match  => 'listen 80 default_server;',
-  path   => $config_file,
+file { '/var/www/html/index.html':
+  ensure  => 'file',
+  content => 'Hello World!',
   require => Package['nginx'],
-  before => Service['nginx'],
+}
+
+file { '/etc/nginx/sites-available/default':
+  ensure  => 'present',
+  content => "
+server {
+    listen 80 default_server;
+    server_name _;
+
+    location / {
+        root   /var/www/html;
+        index  index.html;
+    }
+    
+    location /redirect_me {
+        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
+    }
+    add_header X-Served-By \$HOSTNAME;
+}
+",
+  require => Package['nginx'],
+  notify  => Service['nginx'],
+}
+
+file { '/var/www/html/custom_404.html':
+  ensure  => 'file',
+  content => "Ceci n'est pas une page",
+  require => Package['nginx'],
+}
+
+exec { 'configure_404':
+  command => 'sed -i "/server_name _;/a \\\\error_page 404 /custom_404.html;\\nlocation = /custom_404.html {\\n    root /var/www/html;\\n    internal;\\n}" /etc/nginx/sites-available/default',
+  path    => '/bin:/usr/bin',
+  require => File['/var/www/html/custom_404.html'],
+  notify  => Service['nginx'],
 }
 
 service { 'nginx':
-  ensure  => running,
+  ensure  => 'running',
   enable  => true,
-  require => File_line['add_custom_header'],
+  require => Package['nginx'],
 }

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 # Install HAProxy
 sudo apt-get update -y
 sudo apt-get install -y software-properties-common haproxy

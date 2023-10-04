@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+# Install HAProxy
+sudo apt-get update -y
+sudo apt-get install -y software-properties-common haproxy
+
+cat <<EOL | sudo tee -a /etc/haproxy/haproxy.cfg > /dev/null
+frontend load_balancer
+	bind *:80
+	mode http
+	default_backend servers
+
+backend servers
+	balance roundrobin
+	server 317020-web-01 100.26.20.143:80 check
+	server 317020-web-02 100.26.237.112:80 check
+EOL
+
+sudo service haproxy start
+sudo service haproxy enable
+sudo service haproxy status

@@ -3,7 +3,6 @@
 display_info() {
     local subdomain="$1"
     local domain="$2"
-    local dig_output
     dig_output=$(dig +short "$subdomain.$domain")
 
     if [ -n "$dig_output" ]; then
@@ -17,9 +16,11 @@ display_info() {
 
 if [ "$#" -eq 2 ]; then
     display_info "$2" "$1"
-else
+elif [ "$#" -eq 1 ]; then
     display_info "www" "$1"
     display_info "lb-01" "$1"
     display_info "web-01" "$1"
     display_info "web-02" "$1"
+else
+    exit 1
 fi

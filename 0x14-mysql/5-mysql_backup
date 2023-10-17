@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# MySQL backup script
+current_date=$(date +'%d-%m-%Y')
+if [ -z "$1" ]; then
+echo "Please provide the password as an argument."
+exit 1
+fi
+mysqldump -u root -p"$1" --all-databases > backup.sql
+tar -czvf "$current_date.tar.gz" backup.sql

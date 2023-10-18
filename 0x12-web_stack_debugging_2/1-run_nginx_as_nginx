@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# script to make Nginx run as nginx user
+service nginx stop
+sed -i 's/user www-data;/user nginx;/' /etc/nginx/nginx.conf
+service nginx start
+nc -z 0 8080

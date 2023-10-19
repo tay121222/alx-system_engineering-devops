@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # script to make Nginx run as nginx user
 sudo service nginx stop
-sudo sed -i 's/user www-data;/user nginx;/' /etc/nginx/nginx.conf
-sudo sed -i 's/listen 80;/listen 8080;/g' /etc/nginx/sites-available/default
+sudo sed -i 's/user\s*.*;/user nginx;/' /etc/nginx/nginx.conf
+sudo sed -i '/listen\s*.*;/d' /etc/nginx/sites-available/default
+sudo sed -i '/server {/a \    listen 8080 default_server;' /etc/nginx/sites-available/default
 sudo service nginx start

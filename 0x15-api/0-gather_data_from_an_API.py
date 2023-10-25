@@ -9,16 +9,16 @@ import requests
 import sys
 
 
-def get_todo(id):
+def get_todo():
     """Fetch to task done by employee"""
-    emp_id = id
-    url = 'https://jsonplaceholder.typicode.com/users/{}'.format(emp_id)
+    user = int(sys.argv[1])
+    url = 'https://jsonplaceholder.typicode.com/users/{}'.format(user)
     response = requests.get(url)
     employee = response.json()
     employee_name = employee['name']
 
     url = 'https://jsonplaceholder.typicode.com/todos?'
-    param = 'userId={}'.format(emp_id)
+    param = 'userId={}'.format(user)
     response = requests.get(url + param)
     todos = response.json()
     completed_tasks = [todo['title'] for todo in todos if todo['completed']]
@@ -31,4 +31,4 @@ def get_todo(id):
 
 
 if __name__ == "__main__":
-    get_todo(int(sys.argv[1]))
+    get_todo()

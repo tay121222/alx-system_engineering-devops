@@ -9,8 +9,8 @@ import requests
 import sys
 
 
-if __name__ == "__main__":
-    emp_id = sys.argv[1]
+def get_todo(id):
+    emp_id = id
     url = 'https://jsonplaceholder.typicode.com/users/{}'.format(emp_id)
     response = requests.get(url)
     employee = response.json()
@@ -27,3 +27,7 @@ if __name__ == "__main__":
           .format(employee_name, len(completed_tasks), total_tasks))
     for task in completed_tasks:
         print("\t{}".format(task))
+
+
+if __name__ == "__main__":
+    get_todo(int(sys.argv[1]))

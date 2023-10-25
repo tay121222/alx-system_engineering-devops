@@ -32,4 +32,3 @@ def get_todo(id):
 
 if __name__ == "__main__":
     get_todo(int(sys.argv[1]))
-

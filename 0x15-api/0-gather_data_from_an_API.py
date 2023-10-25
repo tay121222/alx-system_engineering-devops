@@ -10,6 +10,7 @@ import sys
 
 
 def get_todo(id):
+    """Fetch to task done by employee"""
     emp_id = id
     url = 'https://jsonplaceholder.typicode.com/users/{}'.format(emp_id)
     response = requests.get(url)

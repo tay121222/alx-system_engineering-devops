@@ -9,34 +9,34 @@ import csv
 import requests
 import sys
 
-base_url = 'https://jsonplaceholder.typicode.com'
+base_url = "https://jsonplaceholder.typicode.com"
 
 
 def get_todo(id):
     """Fetch to task done by employee"""
     employee_id = id
-    url = '{}/users/{}'.format(base_url, employee_id)
+    url = "{}/users/{}".format(base_url, employee_id)
     response = requests.get(url)
     employee = response.json()
-    employee_name = employee['username']
+    employee_name = employee["username"]
 
-    url = '{}/todos?userId={}'.format(base_url, employee_id)
+    url = "{}/todos?userId={}".format(base_url, employee_id)
     response = requests.get(url)
     todos = response.json()
 
-    file_name = '{}.csv'.format(employee_id)
-    with open(file_name, mode='w', newline='') as file:
-        writer = csv.writer(file)
+    file_name = "{}.csv".format(employee_id)
+    with open(file_name, mode="w", newline="") as file:
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
         # writer.writerow(
         #        ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS", "TASK_TITLE"]
         #        )
         for todo in todos:
-            row = (
-                todo['userId'],
+            row = [
+                str(todo["userId"]),
                 employee_name,
-                todo['completed'],
-                todo['title']
-            )
+                str(todo["completed"]),
+                todo["title"],
+            ]
             writer.writerow(row)
 
     print("Employee {} tasks saved to {}".format(employee_name, file_name))

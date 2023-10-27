@@ -34,7 +34,7 @@ def gettodo(id):
     )
 
     for task in completed_tasks:
-        print("\t{}".format(task))
+        print("\t " + task)
 
 
 if __name__ == "__main__":

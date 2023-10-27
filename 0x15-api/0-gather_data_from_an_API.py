@@ -8,16 +8,19 @@ python3 filename.py <employee_id>
 import requests
 import sys
 
+users_url = "https://jsonplaceholder.typicode.com/users"
+todos_url = "https://jsonplaceholder.typicode.com/todos"
+
 
 def gettodo(id):
     """Fetch to task done by employee"""
     employee_id = id
-    url = "https://jsonplaceholder.typicode.com/users/{}".format(employee_id)
+    url = "{}/{}".format(users_url, employee_id)
     response = requests.get(url)
     employee = response.json()
     employee_name = employee["name"]
 
-    url = "https://jsonplaceholder.typicode.com/todos?"
+    url = "{}?".format(todos_url)
     param = "userId={}".format(employee_id)
     response = requests.get(url + param)
     todos = response.json()

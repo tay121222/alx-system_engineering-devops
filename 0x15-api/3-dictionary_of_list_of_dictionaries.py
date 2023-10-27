@@ -5,9 +5,9 @@ Retrieves information about employee TODO list progress from a REST API.
 Usage:
 python3 filename.py <employee_id>
 """
+import json
 import requests
 import sys
-import json
 
 base_url = 'https://jsonplaceholder.typicode.com'
 

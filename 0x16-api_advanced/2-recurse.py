@@ -31,7 +31,7 @@ def recurse(subreddit, hot_list=None, after=None):
 
         after = data['data']['after']
         if after:
-            recurse(subreddit, hot_list, after)
+            return recurse(subreddit, hot_list, after)
 
         return hot_list
 

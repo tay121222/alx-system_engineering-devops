@@ -6,9 +6,9 @@ file { '/var/www/html/wp-settings.php':
   before  => Exec['fix-wordpress'],
 }
 
-exec { 'fix-wordpress':
-  command     => 'sed -i "s/require( ABSPATH . WPINC . \'\/class-wp-locale.phpp\' );/' \
-  'require_once( ABSPATH . WPINC . \'\/class-wp-locale.php\' );/g" ' \
-  '/var/www/html/wp-settings.php',
+$file_path = '/var/www/html/wp-settings.php'
+exec { 'fix_wordpress':
+  command => "sed -i 's/class-wp-locale.phpp/class-wp-locale.php/' ${file_path}",
+  path    => ['/bin', '/usr/bin'],
   refreshonly => true,
 }

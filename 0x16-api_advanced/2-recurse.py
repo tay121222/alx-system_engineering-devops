@@ -16,7 +16,7 @@ def recurse(subreddit, hot_list=None, after=None):
     try:
         url = URL_TEMPLATE.format(subreddit)
         headers = {'User-Agent': USER_AGENT}
-        params = {'after': after} if after else None
+        params = {'limit': 100, 'after': after} if after else {'limit': 100}
         response = requests.get(url, headers=headers, params=params,
                                 allow_redirects=False)
 

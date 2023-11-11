@@ -32,11 +32,12 @@ def count_words(subreddit, word_list, counts=None, after=None):
 
         for post in posts:
             title = post['data']['title'].lower()
+            w_t = title.split()
             for word in word_list:
                 w_l = word.lower()
                 if w_l in title:
                     counts[w_l] = (
-                            counts.get(w_l, 0) + title.split().count(w_l)
+                            counts.get(w_l, 0) + w_t.count(w_l)
                             )
 
         after = data['data']['after']

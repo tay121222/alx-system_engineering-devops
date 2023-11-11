@@ -17,7 +17,9 @@ def count_words(subreddit, word_list, counts=None, after=None):
         url = URL_TEMPLATE.format(subreddit)
         headers = {'User-Agent': USER_AGENT}
         params = {'limit': 100, 'after': after} if after else {'limit': 100}
-        response = requests.get(url, headers=headers, params=params, allow_redirects=False)
+        response = requests.get(
+                url, headers=headers, params=params, allow_redirects=False
+                )
 
         if response.status_code != 200:
             return
@@ -31,9 +33,11 @@ def count_words(subreddit, word_list, counts=None, after=None):
         for post in posts:
             title = post['data']['title'].lower()
             for word in word_list:
-                word_lower = word.lower()
-                if word_lower in title:
-                    counts[word_lower] = counts.get(word_lower, 0) + title.count(word_lower)
+                word_l = word.lower()
+                if word_l in title:
+                    counts[word_l] = (
+                            counts.get(word_l, 0) + title.count(word_l)
+                            )
 
         after = data['data']['after']
         if after:
@@ -47,6 +51,9 @@ def count_words(subreddit, word_list, counts=None, after=None):
 
 
 def print_results(counts):
-    sorted_counts = sorted(counts.items(), key=lambda x: (-x[1], x[0]))
+    """sort and print the results"""
+    sorted_counts = sorted(counts.items(), key=lambda x: (x[1], x[0]))
+    sorted_counts = sorted(sorted_counts, key=lambda x: x[1], reverse=True)
+
     for word, count in sorted_counts:
-        print(f"{word}: {count}")
+        print("{}: {}".format(word, count))

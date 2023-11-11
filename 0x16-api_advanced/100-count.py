@@ -35,7 +35,7 @@ def count_words(subreddit, word_list, counts=None, after=None):
             for word in word_list:
                 w_l = word.lower()
                 counts[w_l] = (
-                        counts.get(w_l, 0) + title.count(w_l)
+                        counts.get(w_l, 0) + title.split().count(w_l)
                         )
 
         after = data['data']['after']
@@ -46,7 +46,7 @@ def count_words(subreddit, word_list, counts=None, after=None):
             print_results(counts)
 
     except requests.RequestException as e:
-        return
+        return None
 
 
 def print_results(counts):

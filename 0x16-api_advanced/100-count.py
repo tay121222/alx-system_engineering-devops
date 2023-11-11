@@ -36,7 +36,7 @@ def count_words(subreddit, word_list, counts=None, after=None):
                 w_l = word.lower()
                 if w_l in title:
                     counts[w_l] = (
-                            counts.get(w_l, 0) + title.split().count(w_l)
+                            counts.get(w_l, 0) + 1
                             )
 
         after = data['data']['after']
@@ -52,7 +52,7 @@ def count_words(subreddit, word_list, counts=None, after=None):
 
 def print_results(counts):
     """sort and print the results"""
-    sorted_counts = sorted(counts.items(), key=lambda x: (x[1], x[0]))
+    sorted_counts = sorted(counts.items(), key=lambda x: (x[1], x[0].lower()))
     sorted_counts = sorted(sorted_counts, key=lambda x: x[1], reverse=True)
 
     for word, count in sorted_counts:

@@ -3,7 +3,7 @@
 import requests
 
 USER_AGENT = 'Mozilla/5.0'
-URL_TEMPLATE = "https://www.reddit.com/r/{}/hot.json"
+URL_TEMPLATE = "https://www.reddit.com/r/{}/hot.json?limit=10"
 
 
 def top_ten(subreddit):
@@ -15,7 +15,7 @@ def top_ten(subreddit):
         response = requests.get(url, headers=headers, allow_redirects=False)
         if response.status_code == 200:
             data = response.json()
-            posts = data['data']['children'][:10]
+            posts = data.get('data', {}).get('children', [])
             for post in posts:
                 print(post['data']['title'])
         else:

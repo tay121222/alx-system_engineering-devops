@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 # Bash script to reload Gunicorn in a graceful way
-pgrep -f "gunicorn.*web_dynamic.2-hbnb:app" | xargs -I{} kill -HUP {}
+pkill -HUP -f "gunicorn.*web_dynamic.2-hbnb:app"

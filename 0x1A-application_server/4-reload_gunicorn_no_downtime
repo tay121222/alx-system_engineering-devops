@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Bash script to reload Gunicorn in a graceful way
+sudo systemctl stop gunicorn
+sleep 10
+sudo systemctl is-active --quiet gunicorn || sudo systemctl start gunicorn
